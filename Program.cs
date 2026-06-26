@@ -1,3 +1,4 @@
+using Npgsql.EntityFrameworkCore.PostgreSQL;
 using Microsoft.EntityFrameworkCore;          
 using WorkTrackPro.API.Data;                 
 using Microsoft.AspNetCore.Authentication.JwtBearer;   
@@ -14,8 +15,18 @@ builder.Services.AddCors(options =>
                   .AllowAnyMethod();
         });
 });
-builder.Services.AddDbContext<AppDbContext>(options =>    
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));    
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+if (connectionString != null && connectionString.Contains("Host="))
+{
+    builder.Services.AddDbContext<AppDbContext>(options =>
+        options.UseNpgsql(connectionString));
+}
+else
+{
+    builder.Services.AddDbContext<AppDbContext>(options =>
+        options.UseSqlServer(connectionString));
+}
 // Add services to the container.
 
 builder.Services.AddControllers();
