@@ -275,6 +275,42 @@ namespace WorkTrackPro.API.Controllers
                 monthlyData   // ✅ IMPORTANT
             });
         }
+        [HttpPost("seed")]
+        public IActionResult SeedTasks()
+        {
+            _context.Tasks.RemoveRange(_context.Tasks);
+            _context.SaveChanges();
+
+            var tasks = new List<TaskItem>
+    {
+        new TaskItem { Title="Login Page", Description="Design login UI", AssignedTo=2, Status="Completed", Date=DateTime.UtcNow },
+        new TaskItem { Title="Dashboard", Description="Create dashboard", AssignedTo=3, Status="Pending", Date=DateTime.UtcNow },
+        new TaskItem { Title="Employee CRUD", Description="Employee module", AssignedTo=4, Status="In Progress", Date=DateTime.UtcNow },
+        new TaskItem { Title="Task CRUD", Description="Task module", AssignedTo=5, Status="Completed", Date=DateTime.UtcNow },
+        new TaskItem { Title="Reports", Description="Performance report", AssignedTo=6, Status="Pending", Date=DateTime.UtcNow },
+        new TaskItem { Title="Authentication", Description="JWT Login", AssignedTo=7, Status="Completed", Date=DateTime.UtcNow },
+        new TaskItem { Title="Forgot Password", Description="OTP API", AssignedTo=8, Status="Completed", Date=DateTime.UtcNow },
+        new TaskItem { Title="Testing", Description="API testing", AssignedTo=9, Status="Pending", Date=DateTime.UtcNow },
+        new TaskItem { Title="Deployment", Description="Deploy Railway", AssignedTo=10, Status="Completed", Date=DateTime.UtcNow },
+        new TaskItem { Title="Bug Fix", Description="Fix login issue", AssignedTo=11, Status="In Progress", Date=DateTime.UtcNow },
+
+        new TaskItem { Title="UI Update", Description="Navbar update", AssignedTo=12, Status="Completed", Date=DateTime.UtcNow },
+        new TaskItem { Title="Profile Page", Description="Employee profile", AssignedTo=13, Status="Pending", Date=DateTime.UtcNow },
+        new TaskItem { Title="Search", Description="Employee search", AssignedTo=14, Status="Completed", Date=DateTime.UtcNow },
+        new TaskItem { Title="Pagination", Description="Employee list paging", AssignedTo=15, Status="Completed", Date=DateTime.UtcNow },
+        new TaskItem { Title="Charts", Description="Dashboard charts", AssignedTo=16, Status="In Progress", Date=DateTime.UtcNow },
+        new TaskItem { Title="Export PDF", Description="Report export", AssignedTo=17, Status="Pending", Date=DateTime.UtcNow },
+        new TaskItem { Title="Notifications", Description="Alert messages", AssignedTo=18, Status="Completed", Date=DateTime.UtcNow },
+        new TaskItem { Title="Email Service", Description="SMTP setup", AssignedTo=19, Status="Pending", Date=DateTime.UtcNow },
+        new TaskItem { Title="Performance", Description="Optimize APIs", AssignedTo=20, Status="Completed", Date=DateTime.UtcNow },
+        new TaskItem { Title="Final Testing", Description="Complete testing", AssignedTo=21, Status="Completed", Date=DateTime.UtcNow }
+    };
+
+            _context.Tasks.AddRange(tasks);
+            _context.SaveChanges();
+
+            return Ok($"{tasks.Count} tasks added successfully.");
+        }
     }
 
 }
