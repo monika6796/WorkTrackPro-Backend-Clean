@@ -261,6 +261,44 @@ namespace WorkTrackPro.API.Controller
                 profileImage = user.ProfileImage
             });
         }
+        [HttpPost("seed")]
+        public IActionResult SeedEmployees()
+        {
+            if (_context.Employees.Any())
+            {
+                return BadRequest("Employees already exist.");
+            }
+
+            var employees = new List<Employee>
+    {
+        new Employee { Name="Monika Pandey", Email="monika@gmail.com", Password="Monika@123", Role="Admin", Status="Active", Phone="9876543200", Username="monika6796", JoinDate=DateTime.UtcNow },
+
+        new Employee { Name="Rahul Sharma", Email="rahul@gmail.com", Password="Rahul@123", Role="Employee", Status="Active", Phone="9876543201", Username="rahul01", JoinDate=DateTime.UtcNow },
+        new Employee { Name="Priya Verma", Email="priya@gmail.com", Password="Priya@123", Role="Employee", Status="Active", Phone="9876543202", Username="priya01", JoinDate=DateTime.UtcNow },
+        new Employee { Name="Amit Singh", Email="amit@gmail.com", Password="Amit@123", Role="Employee", Status="Active", Phone="9876543203", Username="amit01", JoinDate=DateTime.UtcNow },
+        new Employee { Name="Neha Gupta", Email="neha@gmail.com", Password="Neha@123", Role="Employee", Status="Active", Phone="9876543204", Username="neha01", JoinDate=DateTime.UtcNow },
+        new Employee { Name="Rohit Meena", Email="rohit@gmail.com", Password="Rohit@123", Role="Employee", Status="Active", Phone="9876543205", Username="rohit01", JoinDate=DateTime.UtcNow },
+        new Employee { Name="Anjali Sharma", Email="anjali@gmail.com", Password="Anjali@123", Role="Employee", Status="Active", Phone="9876543206", Username="anjali01", JoinDate=DateTime.UtcNow },
+        new Employee { Name="Karan Joshi", Email="karan@gmail.com", Password="Karan@123", Role="Employee", Status="Active", Phone="9876543207", Username="karan01", JoinDate=DateTime.UtcNow },
+        new Employee { Name="Sneha Patel", Email="sneha@gmail.com", Password="Sneha@123", Role="Employee", Status="Active", Phone="9876543208", Username="sneha01", JoinDate=DateTime.UtcNow },
+        new Employee { Name="Vikas Kumar", Email="vikas@gmail.com", Password="Vikas@123", Role="Employee", Status="Active", Phone="9876543209", Username="vikas01", JoinDate=DateTime.UtcNow },
+        new Employee { Name="Pooja Yadav", Email="pooja@gmail.com", Password="Pooja@123", Role="Employee", Status="Active", Phone="9876543210", Username="pooja01", JoinDate=DateTime.UtcNow },
+        new Employee { Name="Deepak Saini", Email="deepak@gmail.com", Password="Deepak@123", Role="Employee", Status="Active", Phone="9876543211", Username="deepak01", JoinDate=DateTime.UtcNow },
+        new Employee { Name="Riya Jain", Email="riya@gmail.com", Password="Riya@123", Role="Employee", Status="Active", Phone="9876543212", Username="riya01", JoinDate=DateTime.UtcNow },
+        new Employee { Name="Arjun Kapoor", Email="arjun@gmail.com", Password="Arjun@123", Role="Employee", Status="Active", Phone="9876543213", Username="arjun01", JoinDate=DateTime.UtcNow },
+        new Employee { Name="Meera Nair", Email="meera@gmail.com", Password="Meera@123", Role="Employee", Status="Active", Phone="9876543214", Username="meera01", JoinDate=DateTime.UtcNow },
+        new Employee { Name="Nitin Chauhan", Email="nitin@gmail.com", Password="Nitin@123", Role="Employee", Status="Active", Phone="9876543215", Username="nitin01", JoinDate=DateTime.UtcNow },
+        new Employee { Name="Simran Kaur", Email="simran@gmail.com", Password="Simran@123", Role="Employee", Status="Active", Phone="9876543216", Username="simran01", JoinDate=DateTime.UtcNow },
+        new Employee { Name="Yash Agarwal", Email="yash@gmail.com", Password="Yash@123", Role="Employee", Status="Active", Phone="9876543217", Username="yash01", JoinDate=DateTime.UtcNow },
+        new Employee { Name="Kavita Mishra", Email="kavita@gmail.com", Password="Kavita@123", Role="Employee", Status="Active", Phone="9876543218", Username="kavita01", JoinDate=DateTime.UtcNow },
+        new Employee { Name="Harsh Gupta", Email="harsh@gmail.com", Password="Harsh@123", Role="Employee", Status="Active", Phone="9876543219", Username="harsh01", JoinDate=DateTime.UtcNow }
+    };
+
+            _context.Employees.AddRange(employees);
+            _context.SaveChanges();
+
+            return Ok("20 employees added successfully.");
+        }
     }
 }
 
