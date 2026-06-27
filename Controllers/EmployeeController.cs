@@ -264,10 +264,8 @@ namespace WorkTrackPro.API.Controller
         [HttpPost("seed")]
         public IActionResult SeedEmployees()
         {
-            if (_context.Employees.Any())
-            {
-                return BadRequest("Employees already exist.");
-            }
+            _context.Employees.RemoveRange(_context.Employees);
+            _context.SaveChanges();
 
             var employees = new List<Employee>
     {
