@@ -17,7 +17,10 @@ builder.Services.AddCors(options =>
 });
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
-if (connectionString != null && connectionString.Contains("Host="))
+if (!string.IsNullOrEmpty(connectionString) &&
+    (connectionString.StartsWith("Host=") ||
+     connectionString.StartsWith("postgres://") ||
+     connectionString.StartsWith("postgresql://")))
 {
     builder.Services.AddDbContext<AppDbContext>(options =>
         options.UseNpgsql(connectionString));
@@ -26,8 +29,7 @@ else
 {
     builder.Services.AddDbContext<AppDbContext>(options =>
         options.UseSqlServer(connectionString));
-}
-// Add services to the container.
+}// Add services to the container.
 
 builder.Services.AddControllers();
 Console.WriteLine("JWT KEY: " + builder.Configuration["Jwt:Key"]);
