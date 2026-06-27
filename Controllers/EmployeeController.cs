@@ -53,18 +53,31 @@ namespace WorkTrackPro.API.Controller
         [HttpPost]
         public IActionResult AddEmployee(Employee emp)
         {
-            var exists = _context.Employees.Any(e => e.Email == emp.Email);
-
-            if (exists)
+            try
             {
-                return BadRequest("Email already exists");
+                var exists = _context.Employees.Any(e => e.Email == emp.Email);
+
+                if (exists)
+                {
+                    return BadRequest("Email already exists");
+                }
+
+                emp.JoinDate = DateTime.UtcNow;
+
+                _context.Employees.Add(emp);
+                _context.SaveChanges();
+
+                return Ok(emp);
             }
-
-            _context.Employees.Add(emp);
-            emp.JoinDate = DateTime.Now;
-            _context.SaveChanges();
-
-            return Ok(emp);
+            catch (Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    message = ex.Message,
+                    inner = ex.InnerException?.Message,
+                    stack = ex.StackTrace
+                });
+            }
         }
 
         [HttpPost("send-otp")]
