@@ -10,12 +10,15 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowAngular",
         policy =>
         {
-            policy.WithOrigins("http://localhost:4200")
-                  .AllowAnyHeader()
-                  .AllowAnyMethod();
+            policy
+                .WithOrigins(
+                    "http://localhost:4200",
+                    "https://work-track-pro-2eyx.vercel.app"
+                )
+                .AllowAnyHeader()
+                .AllowAnyMethod();
         });
-});
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+}); var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
 if (!string.IsNullOrEmpty(connectionString) &&
     (connectionString.StartsWith("Host=") ||
